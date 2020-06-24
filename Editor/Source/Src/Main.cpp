@@ -1,5 +1,5 @@
 #include <Imugi.h>
-#include <iostream>
+
 class Game : public IMUGI::Application
 {
 public:
@@ -9,6 +9,5 @@ public:
 
 IMUGI::Application* IMUGI::CreateApplication()
 {
-	std::cout << "test" << std::endl;
 	return new Game();
 }

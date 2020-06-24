@@ -1,11 +1,3 @@
-/*!
- * \file Config.h
- * \date 2020/06/23
- *
- * \author Judicaël Charlot
- * Contact: charlotjudicael@outlook.fr
-*/
-
 #pragma once
 
 // -----------------------------------------

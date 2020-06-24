@@ -13,7 +13,6 @@ public:
 	void Run();
 };
 
-// To be defined in CLIENT
 Application* CreateApplication();
 
 IMUGI_END

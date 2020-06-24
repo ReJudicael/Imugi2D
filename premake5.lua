@@ -1,6 +1,9 @@
 workspace "Imugi"
-	architecture "x64"
-	configurations { "Debug", "Release", }
+	startproject "Editor"
+	language "C++"
+	architecture "x86_64"
+
+	configurations { "Debug", "Release" }
 
 	filter "configurations:Debug"
 		defines "IMUGI_DEBUG"
@@ -10,32 +13,27 @@ workspace "Imugi"
 		defines "IMUGI_RELEASE"
 		optimize "On"
 
-	filter "system:windows"
-		defines "IMUGI_PLATFORM_WINDOWS"
-		cppdialect "C++17"
-		systemversion "latest"
-
 outputdir = "%{cfg.buildcfg} (%{cfg.architecture})"
 
 project "Imugi"
 	location "Imugi"
 	kind "SharedLib"
-	language "C++"
 	defines "IMUGI_DLL_EXPORT"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	postbuildcommands ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Game")
+	postbuildcommands ("{COPY} \"%{cfg.buildtarget.relpath}\" \"../bin/" .. outputdir .. "/Editor/\"")
 
-	files { "%{prj.name}/Source/Include/**.h", "%{prj.name}/Source/Src/**.cpp" }
+	files { "%{prj.location}/Source/Include/**.h", "%{prj.location}/Source/Src/**.cpp" }
+	includedirs "%{prj.location}/Source/Include/"
 
 project "Editor"
 	location "Editor"
 	kind "ConsoleApp"
-	language "C++"
 	links "Imugi"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files { "%{prj.name}/Source/Include/**.h", "%{prj.name}/Source/Src/**.cpp" }
+	files { "%{prj.location}/Source/Include/**.h", "%{prj.location}/Source/Src/**.cpp" }
+	includedirs { "%{prj.location}/Source/Include/", "Imugi/Source/Include/" }
